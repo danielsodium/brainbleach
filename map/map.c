@@ -40,6 +40,7 @@ static MapNode* map_find_node(Map*m, char* key) {
 }
 
 int map_contains(Map* m, char* key) {
+	if (m == NULL || key == NULL) return 0;
 	return map_find_node(m, key) == NULL;
 }
 
@@ -55,6 +56,7 @@ static MapNode* map_node_create(char* key, void* data) {
 }
 
 void map_insert(Map* m, char* key, void* data) {
+	if (m == NULL || key == NULL) return;
 	int hash = hash_function(key);
 	MapNode* bin = m->bins[hash];
 
@@ -80,11 +82,13 @@ void map_insert(Map* m, char* key, void* data) {
 }
 
 void* map_get(Map* m, char* key) {
+	if (m == NULL || key == NULL) return NULL;
 	MapNode* node = map_find_node(m, key);
 	return node == NULL ? NULL : node->data;
 }
 
 void map_delete(Map* m, char* key) {
+	if (m == NULL || key == NULL) return;
 	int hash = hash_function(key);
 	MapNode* bin = m->bins[hash];
 
@@ -119,6 +123,7 @@ void map_delete(Map* m, char* key) {
 }
 
 void map_destroy(Map* m) {
+	if (m == NULL) return;
 	for (int i = 0; i < m->capacity; i++) {
 		MapNode* next = m->bins[i];
 		while (next != NULL) {

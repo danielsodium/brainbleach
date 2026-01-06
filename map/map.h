@@ -16,10 +16,18 @@ typedef struct {
 } Map;
 
 Map* map_init();
+
 int map_contains(Map* m, char* key);
+
+// replaces value if key is found
 void map_insert(Map* m, char* key, void* data);
+
+// returns NULL if key not found
 void* map_get(Map* m, char* key);
+
+// ignores if key not found
 void map_delete(Map* m, char* key);
+
 void map_destroy(Map* m);
 
 #endif
