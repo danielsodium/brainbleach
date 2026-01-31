@@ -15,10 +15,10 @@ int main(void)
 
     InitWindow(screen.x, screen.y, "weeeeee!");
 
-    SetTargetFPS(60);
+    //SetTargetFPS(60);
 
-	Vector3 center = {0, 0, 0};
-	Cube* c = CubeInit(center, 0.5);
+	Vector3 pos = {0, 0, 1};
+	Cube* c = CubeInit(pos, 0.5);
     while (!WindowShouldClose())
     {
 		if (IsKeyPressed(KEY_H)) {
@@ -28,6 +28,7 @@ int main(void)
 
         BeginDrawing();
         ClearBackground(BLACK);
+		DrawFPS(10, 10);
 		CubeRotate(c, MouseAngles(&screen));
 		CubeDraw(c, screen);
         EndDrawing();

@@ -18,10 +18,11 @@ static void GeneratePoints(Cube* c) {
     c->points[7] = (Vector3) { c->center.x - half, c->center.y + half, c->center.z - half};
 }
 
-Cube* CubeInit(Vector3 center, float length) {
+Cube* CubeInit(Vector3 pos, float length) {
 	Cube* c = malloc(sizeof(Cube));
 	*c = (Cube) {
-		.center = center,
+		.center = {0.0f, 0.0f, 0.0f},
+		.position = pos,
 		.length = length,
 		.rotation = 0,
 	};
@@ -31,11 +32,13 @@ Cube* CubeInit(Vector3 center, float length) {
 }
 
 void CubeDraw(Cube* c, Vector2 screen) {
+	Vector2 rotated[8];
+	for (int i = 0; i < 8; i++)
+		rotated[i] = PointProject(screen, c->position, PointRotate(c->points[i], c->rotation));
+
 	for (int i = 0; i < 12; i++) {
-		Vector3 p1p = PointRotate(&c->points[edges[i][0]], &c->rotation);
-		Vector3 p2p = PointRotate(&c->points[edges[i][1]], &c->rotation);
-		Vector2 p1 = PointProject(&screen, &p1p);
-		Vector2 p2 = PointProject(&screen, &p2p);
+		Vector2 p1 = rotated[edges[i][0]];
+		Vector2 p2 = rotated[edges[i][1]];
 		DrawLine(p1.x, p1.y, p2.x, p2.y, WHITE);
 	}
 }

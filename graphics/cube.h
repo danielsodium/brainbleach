@@ -10,9 +10,10 @@ typedef struct {
 	Vector3 center;
 	float length;
 	Vector3 rotation;
+	Vector3 position;
 } Cube;
 
-Cube* CubeInit(Vector3 center, float length);
+Cube* CubeInit(Vector3 pos, float length);
 void CubeDraw(Cube* c, Vector2 screen);
 void CubeDestroy(Cube* c);
 void CubeRotate(Cube* c, Vector3 theta);
